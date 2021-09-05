@@ -1,2 +1,3 @@
 # PixelManipulation
-Pixel Manipulation
+
+Pixel Manipulation on Images with vanilla JavaScript
