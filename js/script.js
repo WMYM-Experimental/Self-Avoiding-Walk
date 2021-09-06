@@ -35,15 +35,11 @@ addEventListener("mousemove", (event) => {
   mouse.y = event.y;
 });
 
-/*
 imageMp.addEventListener("load", () => {
   ctx.drawImage(imageMp, 0, 0);
   const scannedImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
   const scannedData = scannedImage.data;
-
-  for (let i = 0; i < scannedData.length; i += 4) {}
 });
-*/
 
 class Particle {
   constructor(x, y, radius, color) {
