@@ -1,21 +1,20 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.width = 500;
+canvas.height = 500;
 
-let TILE_SIZE = 100;
+let size = 500 / 100;
 
-const makeGrid = () => {
-  let coords = [];
-  for (let i = 0; i < canvas.width; i += TILE_SIZE) {
-    for (let j = 0; j < canvas.height; j += TILE_SIZE) {
-      coords.push(new Point(i, j));
-      ctx.beginPath();
-      ctx.rect(i, j, TILE_SIZE, TILE_SIZE);
-      ctx.stroke();
-      ctx.closePath();
-    }
+let grid;
+
+const makeGrid = (cols, rows) => {
+  let matrix = new Array(cols);
+  for (let i = 0; i < matrix.length; i++) {
+    matrix[i] = new Array(rows).fill(false);
   }
-  return coords;
+  return matrix;
 };
+
+grid = makeGrid(size, size);
+console.log(grid);
