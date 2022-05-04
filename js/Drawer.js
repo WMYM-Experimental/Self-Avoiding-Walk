@@ -8,16 +8,16 @@ class Drawer {
     let direction = getRandomInt(0, 4);
     switch (direction) {
       case 0:
-        this.x += SIZE;
+        this.x += 1 * SIZE;
         break;
       case 1:
-        this.x -= SIZE;
+        this.x -= 1 * SIZE;
         break;
       case 2:
-        this.y += SIZE;
+        this.y += 1 * SIZE;
         break;
       case 3:
-        this.y -= SIZE;
+        this.y -= 1 * SIZE;
         break;
       default:
         break;
@@ -29,13 +29,13 @@ class Drawer {
       this.x = -this.x;
     }
     if (this.x < 0) {
-      this.x = -this.x;
+      this.x = SIZE;
     }
-    if (this.y > canvas.width) {
+    if (this.y > canvas.height) {
       this.y = -this.y;
     }
     if (this.y < 0) {
-      this.y = -this.y;
+      this.y = SIZE;
     }
   }
   draw(oldX, oldY) {
@@ -45,6 +45,11 @@ class Drawer {
     ctx.lineTo(this.x - SIZE / 2, this.y - SIZE / 2);
     ctx.strokeStyle = "#ffffff";
     ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(this.x - SIZE / 2, this.y - SIZE / 2, 5, 0, 2 * Math.PI, false);
+    ctx.fillStyle = "#e5e5e5";
+    ctx.fill();
   }
 }
 
