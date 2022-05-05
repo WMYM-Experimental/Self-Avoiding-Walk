@@ -7,13 +7,20 @@ canvas.height = 500;
 
 let SIZE = 50;
 
-let grid;
+let matrix;
 
 let oldX = 0;
 let oldY = 0;
 
-const COLS = canvas.width / SIZE;
-const ROWS = canvas.height / SIZE;
+const allOptions = [
+  { dx: 1, dy: 0 },
+  { dx: -1, dy: 0 },
+  { dx: 0, dy: 1 },
+  { dx: 0, dy: -1 },
+];
+
+const COLS = parseInt(canvas.width / SIZE);
+const ROWS = parseInt(canvas.height / SIZE);
 
 const drawer = new Drawer(oldX, oldY);
 
@@ -26,10 +33,25 @@ const makeMatrix = (cols, rows) => {
   for (let i = 0; i < matrix.length; i++) {
     matrix[i] = new Array(rows);
   }
+
+  for (let i = 0; i < cols; i++) {
+    for (let j = 0; j < rows; j++) {
+      matrix[i][j] = false;
+    }
+  }
   return matrix;
 };
 
-grid = makeMatrix();
+const isValid = (i, j) => {
+  if (i < 0 || i >= COLS || j < 0 || j >= ROWS) {
+    return false;
+  }
+  return !matrix[i][j];
+};
+
+matrix = makeMatrix(COLS, ROWS);
+let options = [];
+console.log(matrix);
 const animate = () => {
   oldX = drawer.x;
   oldY = drawer.y;
@@ -39,4 +61,4 @@ const animate = () => {
 };
 
 animate();
-export { getRandomInt, SIZE, ctx };
+export { getRandomInt, SIZE, ctx, matrix };

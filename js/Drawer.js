@@ -1,4 +1,4 @@
-import { getRandomInt, SIZE, ctx } from "./script.js";
+import { getRandomInt, SIZE, ctx, matrix } from "./script.js";
 class Drawer {
   constructor(x, y) {
     this.x = x;
@@ -8,16 +8,16 @@ class Drawer {
     let direction = getRandomInt(0, 4);
     switch (direction) {
       case 0:
-        this.x += 1 * SIZE;
+        this.x += 1;
         break;
       case 1:
-        this.x -= 1 * SIZE;
+        this.x -= 1;
         break;
       case 2:
-        this.y += 1 * SIZE;
+        this.y += 1;
         break;
       case 3:
-        this.y -= 1 * SIZE;
+        this.y -= 1;
         break;
       default:
         break;
@@ -25,31 +25,27 @@ class Drawer {
     this.#checkLimits();
   }
   #checkLimits() {
-    if (this.x > canvas.width) {
-      this.x = -this.x;
+    if (this.x > canvas.width || this.x > matrix.length) {
+      this.x = 0;
     }
     if (this.x < 0) {
-      this.x = SIZE;
+      this.x = 0;
     }
-    if (this.y > canvas.height) {
-      this.y = -this.y;
+    if (this.y > canvas.height || this.y > matrix.length) {
+      this.y = 0;
     }
     if (this.y < 0) {
-      this.y = SIZE;
+      this.y = 0;
     }
   }
   draw(oldX, oldY) {
     ctx.lineWidth = 2;
     ctx.beginPath();
-    ctx.moveTo(oldX - SIZE / 2, oldY - SIZE / 2);
-    ctx.lineTo(this.x - SIZE / 2, this.y - SIZE / 2);
+    ctx.moveTo(oldX * SIZE - SIZE / 2, oldY * SIZE - SIZE / 2);
+    ctx.lineTo(this.x * SIZE - SIZE / 2, this.y * SIZE - SIZE / 2);
     ctx.strokeStyle = "#ffffff";
     ctx.stroke();
-
-    ctx.beginPath();
-    ctx.arc(this.x - SIZE / 2, this.y - SIZE / 2, 5, 0, 2 * Math.PI, false);
-    ctx.fillStyle = "#e5e5e5";
-    ctx.fill();
+    ctx.closePath();
   }
 }
 
