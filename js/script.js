@@ -1,4 +1,4 @@
-import { Drawer } from "./Drawer.js";
+import { Walker } from "./Walker.js";
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
@@ -12,17 +12,17 @@ let matrix;
 let oldX = 0;
 let oldY = 0;
 
+const COLS = parseInt(canvas.width / SIZE);
+const ROWS = parseInt(canvas.height / SIZE);
+
+const drawer = new Walker(oldX, oldY);
+
 const allOptions = [
   { dx: 1, dy: 0 },
   { dx: -1, dy: 0 },
   { dx: 0, dy: 1 },
   { dx: 0, dy: -1 },
 ];
-
-const COLS = parseInt(canvas.width / SIZE);
-const ROWS = parseInt(canvas.height / SIZE);
-
-const drawer = new Drawer(oldX, oldY);
 
 const getRandomInt = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
@@ -53,12 +53,23 @@ matrix = makeMatrix(COLS, ROWS);
 let options = [];
 console.log(matrix);
 const animate = () => {
-  oldX = drawer.x;
-  oldY = drawer.y;
+  for (let i = 0; i < COLS; i++) {
+    for (let j = 0; j < ROWS; j++) {
+      ctx.beginPath();
+      ctx.strokeStyle = "#000000";
+      ctx.rect(i * SIZE, j * SIZE, SIZE, SIZE);
+      ctx.stroke();
+      ctx.closePath();
+    }
+  }
+  let selector = getRandomInt(0, 3);
+  drawer.oldX = drawer.x;
+  drawer.oldY = drawer.y;
   drawer.setDirection();
-  drawer.draw(oldX, oldY);
+  drawer.draw();
   requestAnimationFrame(animate);
 };
 
 animate();
-export { getRandomInt, SIZE, ctx, matrix };
+
+export { getRandomInt, SIZE, ctx, matrix, canvas };
