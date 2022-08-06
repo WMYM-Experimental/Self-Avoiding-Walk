@@ -57,12 +57,19 @@ let matrix = makeMatrix(dim.x, dim.y);
 
 console.log(matrix);
 
+const walker = new Walker(1, 1, 0, "#fff");
+
 const animate = () => {
+    if (walker.checkWallCollision()) {
+        return;
+    }
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    matrix[walker.x][walker.y] = 1;
+    walker.move();
     drawMatrix(matrix, "#fff", CELL_SIZE);
     requestAnimationFrame(animate);
 };
 
 animate();
 
-export { ctx, canvas };
+export { ctx, canvas, getRandomInt, makeMatrix, drawMatrix, matrix, animate };
